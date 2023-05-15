@@ -118,7 +118,8 @@ void Application::loop()
       m_input->start();
       // transmit for at least 1 second or while the button is pushed
       unsigned long start_time = millis();
-      while (millis() - start_time < 1000 || digitalRead(GPIO_TRANSMIT_BUTTON))
+      //while (millis() - start_time < 1000 || digitalRead(GPIO_TRANSMIT_BUTTON))
+      while (millis() - start_time < 1000)
       {
         // read samples from the microphone
         int samples_read = m_input->read(samples, 128);
@@ -142,7 +143,8 @@ void Application::loop()
       digitalWrite(I2S_SPEAKER_SD_PIN, HIGH);
     }
     unsigned long start_time = millis();
-    while (millis() - start_time < 1000 || !digitalRead(GPIO_TRANSMIT_BUTTON))
+    //while (millis() - start_time < 1000 || !digitalRead(GPIO_TRANSMIT_BUTTON))
+    while (millis() - start_time < 1000)
     {
       // read from the output buffer (which should be getting filled by the transport)
       m_output_buffer->remove_samples(samples, 128);
