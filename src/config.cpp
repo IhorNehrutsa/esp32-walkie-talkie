@@ -31,9 +31,9 @@ i2s_config_t i2s_adc_config = {
 // i2s config for reading from I2S
 i2s_config_t i2s_mic_Config = {
     .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_TX),
-    .sample_rate = SAMPLE_RATE,
-    .bits_per_sample = I2S_BITS_PER_SAMPLE_32BIT,
-    .channel_format = I2S_CHANNEL_FMT_ALL_LEFT, //I2S_CHANNEL_FMT_ONLY_LEFT, //I2S_MIC_CHANNEL,
+    .sample_rate = 8000,//8k   // 700, // 2000, // SAMPLE_RATE,
+    .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,//256k                     //I2S_BITS_PER_SAMPLE_8BIT,//128k                  //I2S_BITS_PER_SAMPLE_32BIT,//512k
+    .channel_format = I2S_CHANNEL_FMT_ONLY_LEFT, //I2S_MIC_CHANNEL,  //I2S_CHANNEL_FMT_ALL_LEFT, //
     .communication_format = I2S_COMM_FORMAT_STAND_I2S,
     .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1,
     .dma_buf_count = 2, //4,

@@ -34,6 +34,9 @@ void I2SMEMSSampler::configureI2S()
     i2s_set_pin(m_i2sPort, &m_i2sPins);
 }
 
+uint32_t millis_rd = 0;
+uint32_t _millis_rd = 0;
+
 int I2SMEMSSampler::read(int16_t *samples, int count)
 {
     // read from i2s
@@ -42,13 +45,16 @@ int I2SMEMSSampler::read(int16_t *samples, int count)
     {
         count = m_raw_samples_size; // Buffer is too small
     }
-    i2s_read(m_i2sPort, m_raw_samples, sizeof(int32_t) * count, &bytes_read, portMAX_DELAY);
-
+    i2s_read(m_i2sPort, m_raw_samples, sizeof(m_raw_samples[0]) * count, &bytes_read, pdMS_TO_TICKS(40));//portMAX_DELAY);//
 
     if (bytes_read > 0) {
+        millis_rd = millis();
         size_t bytes_written;
         i2s_write(m_i2sPort, m_raw_samples, bytes_read, &bytes_written, portMAX_DELAY);
-        Serial.print("bytes_read=");
+        Serial.print("millis_rd - _millis_rd=");
+        Serial.print(millis_rd - _millis_rd);
+        _millis_rd = millis_rd;
+        Serial.print(" bytes_read=");
         Serial.print(bytes_read);
         Serial.print(" bytes_written=");
         Serial.println(bytes_written);
