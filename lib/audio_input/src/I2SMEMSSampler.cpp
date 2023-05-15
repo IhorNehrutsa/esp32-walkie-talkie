@@ -1,5 +1,6 @@
 #include "I2SMEMSSampler.h"
 #include "soc/i2s_reg.h"
+#include "HardwareSerial.h"
 
 I2SMEMSSampler::I2SMEMSSampler(
     i2s_port_t i2s_port,
@@ -14,7 +15,7 @@ I2SMEMSSampler::I2SMEMSSampler(
     m_raw_samples = (int32_t *)malloc(sizeof(int32_t) * raw_samples_size);
 }
 
-I2SMEMSSampler::~I2SMEMSSampler() 
+I2SMEMSSampler::~I2SMEMSSampler()
 {
   free(m_raw_samples);
 }
@@ -37,11 +38,30 @@ int I2SMEMSSampler::read(int16_t *samples, int count)
 {
     // read from i2s
     size_t bytes_read = 0;
-    if (count>m_raw_samples_size)
+    if (count > m_raw_samples_size)
     {
         count = m_raw_samples_size; // Buffer is too small
     }
     i2s_read(m_i2sPort, m_raw_samples, sizeof(int32_t) * count, &bytes_read, portMAX_DELAY);
+
+
+    if (bytes_read > 0) {
+        size_t bytes_written;
+        i2s_write(m_i2sPort, m_raw_samples, bytes_read, &bytes_written, portMAX_DELAY);
+        Serial.print("bytes_read=");
+        Serial.print(bytes_read);
+        Serial.print(" bytes_written=");
+        Serial.println(bytes_written);
+        /*
+        for (auto i = 0; i < (bytes_read / sizeof(m_raw_samples[0])); i++) {
+            Serial.print(m_raw_samples[i]);
+            Serial.print(' ');
+        }
+        Serial.println();
+        */
+    }
+
+
     int samples_read = bytes_read / sizeof(int32_t);
     for (int i = 0; i < samples_read; i++)
     {
