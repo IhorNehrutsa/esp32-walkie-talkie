@@ -7,7 +7,8 @@ uint8_t transport_header[TRANSPORT_HEADER_SIZE] = {};
 
 #ifndef USE_I2S_MIC_INPUT
 // i2s config for using the internal ADC
-#if CONFIG_IDF_TARGET_ESP32
+#if CONFIG_IDF_TARGET_ESP32 // || CONFIG_IDF_TARGET_ESP32S2 || CONFIG_IDF_TARGET_ESP32S3
+// https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/i2s.html
 i2s_config_t i2s_adc_config = {
     .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_ADC_BUILT_IN),
     .sample_rate = SAMPLE_RATE,
@@ -33,11 +34,11 @@ i2s_config_t i2s_mic_Config = {
     .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_TX),
     .sample_rate = 8000,//8k   // 700, // 2000, // SAMPLE_RATE,
     .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,//256k                     //I2S_BITS_PER_SAMPLE_8BIT,//128k                  //I2S_BITS_PER_SAMPLE_32BIT,//512k
-    .channel_format = I2S_CHANNEL_FMT_ONLY_LEFT, //I2S_MIC_CHANNEL,  //I2S_CHANNEL_FMT_ALL_LEFT, //
+    .channel_format = I2S_CHANNEL_FMT_ONLY_LEFT, //I2S_MIC_CHANNEL,  // I2S_CHANNEL_FMT_ALL_LEFT - 160, //
     .communication_format = I2S_COMM_FORMAT_STAND_I2S,
     .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1,
     .dma_buf_count = 2, //4,
-    .dma_buf_len = 1024, //64,
+    .dma_buf_len = 160, //320, // 1024, //160- bad, //
     .use_apll = false,
     .tx_desc_auto_clear = false,
     .fixed_mclk = 0};
