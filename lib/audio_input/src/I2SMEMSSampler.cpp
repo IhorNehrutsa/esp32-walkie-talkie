@@ -47,6 +47,7 @@ int I2SMEMSSampler::read(int16_t *samples, int count)
     }
     i2s_read(m_i2sPort, m_raw_samples, sizeof(m_raw_samples[0]) * count, &bytes_read, pdMS_TO_TICKS(40));//portMAX_DELAY);//
 
+#ifdef SELF_LISTENING
     if (bytes_read > 0) {
         millis_rd = millis();
         size_t bytes_written;
@@ -66,7 +67,7 @@ int I2SMEMSSampler::read(int16_t *samples, int count)
         Serial.println();
         */
     }
-
+#endif
 
     int samples_read = bytes_read / sizeof(int32_t);
     for (int i = 0; i < samples_read; i++)

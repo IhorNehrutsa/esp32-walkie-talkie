@@ -35,7 +35,11 @@ i2s_config_t i2s_mic_Config = {
     .sample_rate = 8000,//8k   // 700, // 2000, // SAMPLE_RATE,
     .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT,//256k                     //I2S_BITS_PER_SAMPLE_8BIT,//128k                  //I2S_BITS_PER_SAMPLE_32BIT,//512k
     .channel_format = I2S_CHANNEL_FMT_ONLY_LEFT, //I2S_MIC_CHANNEL,  // I2S_CHANNEL_FMT_ALL_LEFT - 160, //
-    .communication_format = I2S_COMM_FORMAT_STAND_I2S,
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(4, 2, 0)
+    .communication_format = I2S_COMM_FORMAT_STAND_MSB,
+#else
+    .communication_format = (i2s_comm_format_t)(I2S_COMM_FORMAT_I2S_MSB),
+#endif
     .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1,
     .dma_buf_count = 2, //4,
     .dma_buf_len = 160, //320, // 1024, //160- bad, //
