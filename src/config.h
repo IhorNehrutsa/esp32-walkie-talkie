@@ -7,7 +7,7 @@
 #define WIFI_PSWD << YOUR_PASSWORD >>
 
 // sample rate for the system
-#define SAMPLE_RATE 16000
+#define SAMPLE_RATE 8000 // 16000
 
 // are you using an I2S microphone - comment this if you want to use an analog mic and ADC input
 // #define USE_I2S_MIC_INPUT
@@ -63,7 +63,7 @@
 // On which wifi channel (1-11) should ESP-Now transmit? The default ESP-Now channel on ESP32 is channel 1
 #define ESP_NOW_WIFI_CHANNEL 1
 
-// In case all transport packets need a header (to avoid interference with other applications or walkie talkie sets), 
+// In case all transport packets need a header (to avoid interference with other applications or walkie talkie sets),
 // specify TRANSPORT_HEADER_SIZE (the length in bytes of the header) in the next line, and define the transport header in config.cpp
 #define TRANSPORT_HEADER_SIZE 0
 extern uint8_t transport_header[TRANSPORT_HEADER_SIZE];
