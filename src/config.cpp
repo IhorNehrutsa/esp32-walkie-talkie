@@ -7,7 +7,7 @@ uint8_t transport_header[TRANSPORT_HEADER_SIZE] = {};
 
 #ifndef USE_I2S_MIC_INPUT
 // i2s config for using the internal ADC
-#if CONFIG_IDF_TARGET_ESP32 // || CONFIG_IDF_TARGET_ESP32S2 || CONFIG_IDF_TARGET_ESP32S3
+#if CONFIG_IDF_TARGET_ESP32
 // https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/i2s.html
 i2s_config_t i2s_adc_config = {
     .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_ADC_BUILT_IN),

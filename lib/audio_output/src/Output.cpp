@@ -3,6 +3,7 @@
 #include <esp_log.h>
 #include <driver/i2s.h>
 
+#define LOG_LOCAL_LEVEL ESP_LOG_INFO
 static const char *TAG = "OUT";
 
 // number of frames to try and send at once (a frame is a left and right sample)
@@ -46,6 +47,8 @@ void Output::write(int16_t *samples, int count)
     if (bytes_written != samples_to_send * sizeof(int16_t) * 2)
     {
       ESP_LOGE(TAG, "Did not write all bytes");
+    } else {
+      // ESP_LOGI(TAG, "Writen %d bytes", bytes_written);
     }
   }
 }
