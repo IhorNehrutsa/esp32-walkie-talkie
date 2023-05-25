@@ -2,6 +2,7 @@
 #include "Output.h"
 #include <esp_log.h>
 #include <driver/i2s.h>
+#include "config.h"
 
 #define LOG_LOCAL_LEVEL ESP_LOG_INFO
 static const char *TAG = "OUT";
@@ -12,7 +13,7 @@ const int NUM_FRAMES_TO_SEND = 256;
 Output::Output(i2s_port_t i2s_port) : m_i2s_port(i2s_port)
 {
   // this will contain the prepared samples for sending to the I2S device
-  m_frames = (int16_t *)malloc(2 * sizeof(int16_t) * NUM_FRAMES_TO_SEND);
+  m_frames = malloc(SAMPLE_SIZE_IN_BYTES * NUM_FRAMES_TO_SEND); // (int16_t *)
 }
 
 Output::~Output()

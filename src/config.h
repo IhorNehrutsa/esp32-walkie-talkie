@@ -9,6 +9,10 @@
 // sample rate for the system
 #define SAMPLE_RATE 8000 // 16000
 
+#define SAMPLE_SIZE_IN_BYTES 2
+
+#define FRAME_LENGTH_IN_SAMPLES 160 // 128
+
 // are you using an I2S microphone - comment this if you want to use an analog mic and ADC input
 // #define USE_I2S_MIC_INPUT
 

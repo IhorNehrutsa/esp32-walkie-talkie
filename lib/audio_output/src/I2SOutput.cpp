@@ -15,8 +15,8 @@ void I2SOutput::start(uint32_t sample_rate)
 #else
         .sample_rate = (int)sample_rate,
 #endif
-        .bits_per_sample = I2S_BITS_PER_SAMPLE_32BIT, // I2S_BITS_PER_SAMPLE_16BIT,
-        .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT,
+        .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT, // I2S_BITS_PER_SAMPLE_32BIT, //
+        .channel_format = I2S_CHANNEL_FMT_RIGHT_LEFT, // I2S_CHANNEL_FMT_ONLY_LEFT, //
 #if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(4, 2, 0)
         .communication_format = (i2s_comm_format_t)(I2S_COMM_FORMAT_STAND_I2S),
 #else

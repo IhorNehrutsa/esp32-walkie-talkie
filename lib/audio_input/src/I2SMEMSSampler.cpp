@@ -2,6 +2,8 @@
 #include "soc/i2s_reg.h"
 #include "HardwareSerial.h"
 
+#include "config.h"
+
 //#define SELF_LISTENING
 
 I2SMEMSSampler::I2SMEMSSampler(
@@ -14,7 +16,7 @@ I2SMEMSSampler::I2SMEMSSampler(
     m_i2sPins = i2s_pins;
     m_fixSPH0645 = fixSPH0645;
     m_raw_samples_size = raw_samples_size;
-    m_raw_samples = (int32_t *)malloc(sizeof(int32_t) * raw_samples_size);
+    m_raw_samples = malloc(SAMPLE_SIZE_IN_BYTES * raw_samples_size); // (int32_t *)
 }
 
 I2SMEMSSampler::~I2SMEMSSampler()

@@ -29,7 +29,7 @@ Application::Application()
 {
   m_output_buffer = new OutputBuffer(300 * 16);
 #ifdef USE_I2S_MIC_INPUT
-  m_input = new I2SMEMSSampler(I2S_NUM_0, i2s_mic_pins, i2s_mic_Config,128);
+  m_input = new I2SMEMSSampler(I2S_NUM_0, i2s_mic_pins, i2s_mic_Config,FRAME_LENGTH_IN_SAMPLES);
 #else
   m_input = new ADCSampler(ADC_UNIT_1, ADC1_CHANNEL_7, i2s_adc_config);
 #endif
@@ -107,7 +107,7 @@ void Application::begin()
 // application task - coordinates everything
 void Application::loop()
 {
-  int16_t *samples = reinterpret_cast<int16_t *>(malloc(sizeof(int16_t) * 128));
+  int16_t *samples = reinterpret_cast<int16_t *>(malloc(sizeof(int16_t) * FRAME_LENGTH_IN_SAMPLES));
   // continue forever
   while (true)
   {
@@ -125,7 +125,7 @@ void Application::loop()
       while (millis() - start_time < 1000 || digitalRead(GPIO_TRANSMIT_BUTTON))
       {
         // read samples from the microphone
-        int samples_read = m_input->read(samples, 128);
+        int samples_read = m_input->read(samples, FRAME_LENGTH_IN_SAMPLES);
         // and send them over the transport
         for (int i = 0; i < samples_read; i++)
         {
@@ -149,9 +149,9 @@ void Application::loop()
     while (millis() - start_time < 1000 || !digitalRead(GPIO_TRANSMIT_BUTTON))
     {
       // read from the output buffer (which should be getting filled by the transport)
-      m_output_buffer->remove_samples(samples, 128);
+      m_output_buffer->remove_samples(samples, FRAME_LENGTH_IN_SAMPLES);
       // and send the samples to the speaker
-      m_output->write(samples, 128);
+      m_output->write(samples, FRAME_LENGTH_IN_SAMPLES);
     }
     if (I2S_SPEAKER_SD_PIN != -1)
     {
