@@ -2,7 +2,7 @@
 #include "soc/i2s_reg.h"
 #include "HardwareSerial.h"
 
-// #define SELF_LISTENING
+//#define SELF_LISTENING
 
 I2SMEMSSampler::I2SMEMSSampler(
     i2s_port_t i2s_port,
