@@ -5,9 +5,10 @@
 // For example, when TRANSPORT_HEADER_SIZE is defined as 3,  define transport_header for example as {0x1F, 0xCD, 0x01};
 uint8_t transport_header[TRANSPORT_HEADER_SIZE] = {};
 
-
+#ifndef USE_I2S_MIC_INPUT
 // i2s config for using the internal ADC
 #if CONFIG_IDF_TARGET_ESP32
+// https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/i2s.html
 i2s_config_t i2s_adc_config = {
     .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_ADC_BUILT_IN),
     .sample_rate = SAMPLE_RATE,
@@ -26,9 +27,11 @@ i2s_config_t i2s_adc_config = {
     .fixed_mclk = 0};
 #endif
 
+#else
+
 // i2s config for reading from I2S
 i2s_config_t i2s_mic_Config = {
-    .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX),
+    .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_TX),
     .sample_rate = SAMPLE_RATE,
     .bits_per_sample = I2S_BITS_PER_SAMPLE_32BIT,
     .channel_format = I2S_MIC_CHANNEL,
@@ -50,6 +53,7 @@ i2s_pin_config_t i2s_mic_pins = {
     .ws_io_num = I2S_MIC_LEFT_RIGHT_CLOCK,
     .data_out_num = I2S_SPEAKER_SERIAL_DATA,
     .data_in_num = I2S_MIC_SERIAL_DATA};
+#endif
 
 // i2s speaker pins
 i2s_pin_config_t i2s_speaker_pins = {
