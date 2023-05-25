@@ -49,7 +49,7 @@ int I2SMEMSSampler::read(int16_t *samples, int count)
     {
         count = m_raw_samples_size; // Buffer is too small
     }
-    i2s_read(m_i2sPort, m_raw_samples, sizeof(m_raw_samples[0]) * count, &bytes_read, pdMS_TO_TICKS(40));//portMAX_DELAY);//
+    i2s_read(m_i2sPort, m_raw_samples, sizeof(m_raw_samples[0]) * count, &bytes_read, portMAX_DELAY);//pdMS_TO_TICKS(40));//
 
 #ifdef SELF_LISTENING
     esp_err_t err;
