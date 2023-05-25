@@ -96,7 +96,7 @@ void Application::begin()
   m_indicator_led->set_default_color(0x00ff00);
   m_indicator_led->set_is_flashing(false, 0x00ff00);
   // setup the transmit button
-  pinMode(GPIO_TRANSMIT_BUTTON, INPUT_PULLDOWN);
+  pinMode(GPIO_TRANSMIT_BUTTON, INPUT);
   // start off with i2S output running
   m_output->start(SAMPLE_RATE);
   // start the main task for the application

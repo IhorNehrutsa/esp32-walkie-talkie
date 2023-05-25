@@ -48,7 +48,7 @@ i2s_config_t i2s_mic_Config = {
 i2s_pin_config_t i2s_mic_pins = {
     .bck_io_num = I2S_MIC_SERIAL_CLOCK,
     .ws_io_num = I2S_MIC_LEFT_RIGHT_CLOCK,
-    .data_out_num = I2S_PIN_NO_CHANGE,
+    .data_out_num = I2S_SPEAKER_SERIAL_DATA,
     .data_in_num = I2S_MIC_SERIAL_DATA};
 
 // i2s speaker pins
@@ -56,4 +56,4 @@ i2s_pin_config_t i2s_speaker_pins = {
     .bck_io_num = I2S_SPEAKER_SERIAL_CLOCK,
     .ws_io_num = I2S_SPEAKER_LEFT_RIGHT_CLOCK,
     .data_out_num = I2S_SPEAKER_SERIAL_DATA,
-    .data_in_num = I2S_PIN_NO_CHANGE};
+    .data_in_num = I2S_MIC_SERIAL_DATA};
